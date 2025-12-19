@@ -1,0 +1,91 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block Body %}
+
+<div className="space-y-6 animate-in fade-in duration-500">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="space-y-2">
+          <h1 className="text-4xl font-serif font-semibold text-foreground">
+            Rendez-vous
+          </h1>
+          <p className="text-muted-foreground">
+            Gérez tous les rendez-vous de votre salon
+          </p>
+        </div>
+        <Button className="bg-gradient-primary hover:opacity-90" size="lg">
+          <Plus className="mr-2 h-5 w-5" />
+          Nouveau rendez-vous
+        </Button>
+      </div>
+
+      <div className="grid gap-4">
+        {rdvs.map((rdv) => (
+          <Card
+            key={rdv.id}
+            className="shadow-soft hover:shadow-medium transition-all"
+          >
+            <CardHeader className="pb-3">
+              <div className="flex items-start justify-between">
+                <div className="space-y-1">
+                  <CardTitle className="text-xl font-serif">
+                    {rdv.client}
+                  </CardTitle>
+                  <p className="text-sm text-muted-foreground flex items-center gap-1">
+                    <User className="h-4 w-4" />
+                    {rdv.phone}
+                  </p>
+                </div>
+                {getStatusBadge(rdv.status)}
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <Calendar className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground">Date</p>
+                    <p className="font-medium text-foreground">
+                      {new Date(rdv.date).toLocaleDateString('fr-FR', {
+                        day: 'numeric',
+                        month: 'long',
+                      })}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-accent/10 rounded-lg">
+                    <Clock className="h-5 w-5 text-accent" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground">Heure</p>
+                    <p className="font-medium text-foreground">{rdv.time}</p>
+                  </div>
+                </div>
+
+
+                <div className="flex items-center gap-3">
+                  <div>
+                    <p className="text-xs text-muted-foreground">Service</p>
+                    <p className="font-medium text-foreground">{rdv.service}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-2 mt-4">
+                <Button variant="outline" size="sm" className="flex-1">
+                  Modifier
+                </Button>
+                <Button variant="outline" size="sm" className="flex-1">
+                  Annuler
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+
+{% endblock %}

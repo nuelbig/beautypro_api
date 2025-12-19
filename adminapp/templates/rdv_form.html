@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block Body %}
+
+<div class="max-w-4xl mx-auto space-y-6 pb-8">
+
+    <div class="text-center space-y-4">
+        <div class="inline-block p-4 bg-gradient-primary rounded-2xl">
+            <!-- Icône calendrier -->
+        </div>
+        <h1 class="text-4xl md:text-5xl font-serif font-bold text-foreground">
+            Prendre rendez-vous
+        </h1>
+        <p class="text-lg text-muted-foreground">
+            Remplissez le formulaire ci-dessous pour réserver votre créneau
+        </p>
+    </div>
+
+    <div class="shadow-medium bg-white rounded-xl p-6 space-y-4">
+        <form method="POST" class="space-y-6">
+            {% csrf_token %}
+
+            <!-- Client -->
+            <div>
+                <label class="block mb-1 text-sm font-medium">Nom complet *</label>
+                {{ form.client }}
+            </div>
+
+            <!-- Téléphone -->
+            <div>
+                <label class="block mb-1 text-sm font-medium">Téléphone *</label>
+                {{ form.telephone }}
+            </div>
+
+            <!-- Service -->
+            <div>
+                <label class="block mb-1 text-sm font-medium">Service *</label>
+                {{ form.service }}
+            </div>
+
+            <!-- Date & Heure -->
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block mb-1 text-sm font-medium">Date *</label>
+                    {{ form.date }}
+                </div>
+
+                <div>
+                    <label class="block mb-1 text-sm font-medium">Heure *</label>
+                    {{ form.heure }}
+                </div>
+            </div>
+
+            <button type="submit"
+                class="w-full bg-gradient-primary hover:opacity-90 text-lg rounded-lg py-3 text-white font-medium">
+                Confirmer le rendez-vous
+            </button>
+        </form>
+    </div>
+
+</div>
+
+
+{% endblock %}
