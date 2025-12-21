@@ -24,8 +24,8 @@ class ReservationViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         if user.is_staff or user.is_superuser:
-            return rdv.objects.all().order_by('-date', '-heure')
-        return rdv.objects.filter(client_account=user).order_by('-date', '-heure')
+            return rdv.objects.all().order_by('created_at')
+        return rdv.objects.filter(client_account=user).order_by('created_at')
     
     def perform_create(self, serializer):
         # Link reservation to the currently logged in user if they are a client
